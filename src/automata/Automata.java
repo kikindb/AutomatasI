@@ -43,7 +43,7 @@ public class Automata {
         //Busca palabras reservadas dentro del texto ingresado
         for(i=0;i<Cadenas.reservadas.length;i++){
             if(palabra.equalsIgnoreCase(Cadenas.reservadas[i])){
-                this.mensaje="Palabra reservada "+Cadenas.reservadas[i];
+                //this.mensaje="Palabra reservada "+Cadenas.reservadas[i];
             }
         }
 
