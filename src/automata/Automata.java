@@ -55,11 +55,17 @@ public class Automata {
         
         //realiza la comparacion con los signos
         for(i=0;i<cadena;i++){
-            if(palabra.charAt(i)=='-'&& palabra.charAt(i)=='-' || palabra.charAt(i)=='_' && palabra.charAt(i)=='_'){
-                this.mensaje="Error, no se permiten mas de 2 guiones seguidos";
+            try{
+            if(palabra.charAt(i)=='-'&& palabra.charAt(i+1)=='-' || palabra.charAt(i)=='_' && palabra.charAt(i+1)=='_'){
+                this.mensaje="Error, no se permiten mas de 2 guiones seguidos o terminar en - ó _";
                 //System.exit(0);
             }
-            System.out.println(palabra.charAt(i));
+                System.out.println(palabra.charAt(i));
+            }catch(StringIndexOutOfBoundsException ex){
+                this.mensaje="Error, no se permiten mas de 2 guiones seguidos o terminar en - ó _";
+            }catch(Exception ex){
+                this.mensaje="Error, no se permiten mas de 2 guiones seguidos o terminar en - ó _";
+            }
         }
         
         return this.mensaje;
