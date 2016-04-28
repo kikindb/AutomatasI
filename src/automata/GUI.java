@@ -130,8 +130,13 @@ public class GUI extends javax.swing.JFrame {
         this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.\nEstado: "+aux);
         
         Analizador analizador = new Analizador();
-        if(aux.contentEquals("Todo Correcto"))
+        if(aux.contentEquals("Todo Correcto")){
             this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
+            
+        }else{
+            this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
+        }
+        //automata.analizador();
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**

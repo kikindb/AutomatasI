@@ -37,7 +37,7 @@ public class Analizador {
             }
             String token4 = m.group(4);
             if(token4!=null){
-                concat+="\nComparador\t"+token4;
+                concat+="\n\tComparador\t"+token4;
             }
             String token5 = m.group(5);
             if(token5!=null){
