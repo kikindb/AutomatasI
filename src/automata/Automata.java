@@ -15,6 +15,9 @@ public class Automata {
     private int longitud=0;
     private int matrizEstados[][];
     private String cME ="";
+    int llavea=0;
+    int llavec=0;
+    int resta;
     
     public Automata(){}
     
@@ -27,7 +30,7 @@ public class Automata {
         boolean isOk = true;
         String aux[];
         int pos =0 ;
-        Pattern pat = Pattern.compile(".*[^\\_]$");
+        Pattern pat = Pattern.compile(".*[^\\_]$"); //.*[^-_]$
         Pattern pat2 = Pattern.compile("^[^a-zA-Z].*");
         Pattern pat3 = Pattern.compile(".*[^\\-]$");
         Pattern pat4 = Pattern.compile("\\d*\\.?\\d+");
@@ -79,6 +82,7 @@ public class Automata {
                         if(mat3.matches()){
                             System.out.print(" No Termina en Guion");
                             this.cME +=" No Termina en Guion";
+                            isOk = true;
                         }else{
                             System.out.print(" Si Termina en Guion");
                             this.cME +=" Si Termina en Guion";
@@ -93,23 +97,27 @@ public class Automata {
                 if(isOk){
                     System.out.print(" Por Lo Tanto Es Válida.");
                     this.cME +=" Por Lo Tanto Es Válida.";
-                    matriz[i]=isOk;
+                    matriz[i]=true;
                 }else{
                     System.out.println(" Por Lo Tanto Es Inválida.");
                     this.cME +=" Por Lo Tanto Es Inválida.";
-                    matriz[i]=isOk;
+                    matriz[i]=false;
                 }
                 System.out.println("");
                 this.cME +="\n";
                 
+            }else{
+                matriz[i]=true;
             }
         }
             boolean ret=true;
+            System.out.println("Matriz Booleana:");
             for (int i = 0; i < matriz.length; i++) {
+                System.out.println(matriz[i]);
                 if(matriz[i]!=true){
                     ret = false;
                 }
-            
+           
             }
              return ret;
     }
@@ -131,11 +139,6 @@ public class Automata {
                 //el ciclo se rompe si encuentra un caracter valido
                 break;
             }
-        }
-        //marca error y termina el programa si no encuentra caracteres validos
-        if(i>52){
-            this.mensaje="Error, debes de inciar con una letra";
-            //System.exit(0);
         }
 
         //Busca palabras reservadas dentro del texto ingresado
@@ -165,6 +168,41 @@ public class Automata {
                 this.mensaje="Error, no se permiten mas de 2 guiones seguidos o terminar en - ó _";
             }
         }
+        //Busca comentarios del tipo /* */
+        if(palabra.contains("/*") | palabra.contains("*/")){
+            //revisa la cadena para ver cuantas /* y cuantas */ existen     
+            for(i=0;i<(cadena-1);i++){
+                if(palabra.charAt(i)=='/'){
+                    if(palabra.charAt((i+1))=='*'){
+                        llavea++;
+                    }
+                }
+                if(palabra.charAt(i)=='*'){
+                    if(palabra.charAt((i+1))=='/'){
+                        llavec++;
+                    }
+                }
+            }
+            //obtiene el numero de comentarios completos/incompletos
+            resta=llavea-llavec;
+            //indica cuantos cuantas llaves del tipo /* o */ faltaron para cerrar el comentario
+            if(llavea>llavec){this.mensaje="pusiste "+ resta + " /* demas o no las cerraste";}
+            if(llavec>llavea){this.mensaje="pusiste "+(-resta)+" */ demas o no las cerraste";}
+        }
+
+        //verifica que el programa posea almenos una de las llaves para compararlo
+         if(palabra.contains("{")| palabra.contains("}")){
+            //compara caracter por caracter si tiene los { o } para conocer la cantidad de estos         
+             for(i=0;i<cadena;i++){
+                if(palabra.charAt(i)=='{'){llavea++;}
+                if(palabra.charAt(i)=='}'){llavec++;}
+             }
+            //indica la diferiencia de cantidad entre { y }
+             resta=llavea-llavec;
+            //indica cuantas { o cuantas } hicieron falta para cerrar el comentario
+             if(llavea>llavec){this.mensaje="pusiste "+ resta + " { demas o no las cerraste";}
+             if(llavec>llavea){this.mensaje="pusiste "+(-resta)+"  } demas o no las cerraste";}
+         }
         return this.mensaje;
         }else{
             return "Error";

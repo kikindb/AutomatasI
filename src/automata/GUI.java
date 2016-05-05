@@ -121,7 +121,8 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAnalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnalizarActionPerformed
-        // TODO add your handling code here:
+        this.textoConsola.setText("");
+        /*
         String aux;
         Automata automata = new Automata();
         automata.setPalabra(this.textoAnalizar.getText());
@@ -130,13 +131,25 @@ public class GUI extends javax.swing.JFrame {
         this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.\nEstado: "+aux);
         
         Analizador analizador = new Analizador();
-        if(aux.contentEquals("Todo Correcto")){
-            this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
+        this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
             
-        }else{
-            this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
+        this.textoConsola.setText(this.textoConsola.getText()+"\n");
+
+        this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
+        //automata.analizador();*/
+        Separador s = new Separador();
+        String cadena[] = s.separarPalabraPorEspacios(this.textoAnalizar.getText());
+        s.imprimirArreglo();
+        Analizador analizador = new Analizador();
+        Automata automata = new Automata();
+        automata.setPalabra(this.textoAnalizar.getText());
+        String aux = automata.analisis();
+        
+        this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.\nEstado: "+aux);
+        this.textoConsola.setText(this.textoConsola.getText()+"\n\n\t------------------\n\tToken\tLexema\n\t------------------");
+        for (int i = 0; i < cadena.length; i++) {
+            this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(cadena[i]));
         }
-        //automata.analizador();
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**

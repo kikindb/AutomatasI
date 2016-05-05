@@ -16,9 +16,20 @@ public class Analizador {
     public Analizador(){}
     
     public String analizarCadena(String cadena){
-        String patron = "(while|true|array|begin|boolean|by|byte|case|char|const|div|do|else|elseif|end|exit|false|for|function|if|integer|loop|mod|module|not|of|procedure|readln|record|real|repeat|return|string|then|to|until|var|with|writeln)|([a-zA-Z]+)|(\\s+)|(>|<|==|>=|<=|!)|([\\.=\\+\\-/*%]|([\\(\\)\\{\\}\\[\\];,]))|(\\d*\\.?\\d+)|(//[^\\r\\n]*)|(/[*].*?[*]/)|('\\\\.'|'[^\\\\]')|(\\\".*?\\\")";
+        String patron = 
+                "(while|true|array|begin|boolean|by|byte|case|char|const|div|do|else|elseif|end|exit|false|for|function|if|integer|loop|mod|module|not|of|procedure|readln|record|real|repeat|return|string|then|to|until|var|with|writeln)"
+                + "|([a-zA-Z]+)" //Alfabeto
+                + "|(\\s+)" //Espacios
+                + "|(>|<|==|>=|<=|!)" //Comparador
+                + "|([\\.=\\+\\-*%]" //Operador //[\\.=\\+\\-/*%]
+                + "|([\\(\\)\\\\\\[\\];,]))" //Delimitador
+                + "|(\\d*\\.?\\d+)" //Numeros
+                + "|([{].*?[}])" //Comentario Tipo1
+                + "|(/[*].*?[*]/)" //Comentario Tipo2
+                + "|('\\\\.'|'[^\\\\]')" //Caracter
+                + "|(\\\".*?\\\")"; //Cadena
         String texto = cadena.toLowerCase();
-        String concat = "\n\n\t------------------\n\tToken\tLexema\n\t------------------";
+        String concat = "";//"\n\n\t------------------\n\tToken\tLexema\n\t------------------";
 
         Pattern p = Pattern.compile(patron);
         Matcher m = p.matcher(texto);
@@ -29,7 +40,7 @@ public class Analizador {
             }
             String token2 = m.group(2);
             if(token2!=null){
-                concat+="\n\tVariables\t"+token2;
+                concat+="\n\tIdentificador\t"+token2;
             }
             String token3 = m.group(3);
             if(token3!=null){
