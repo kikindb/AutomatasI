@@ -144,15 +144,16 @@ public class GUI extends javax.swing.JFrame {
         Automata automata = new Automata();
         automata.setPalabra(this.textoAnalizar.getText());
         String aux = automata.analisis();
-        this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
+        //this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
         this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.\nEstado: "+aux);
         this.textoConsola.setText(this.textoConsola.getText()+"\n");
-        this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
+        //this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
         
         this.textoConsola.setText(this.textoConsola.getText()+"\n\n\t------------------\n\tToken\tLexema\n\t------------------");
         for (int i = 0; i < cadena.length; i++) {
             this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(cadena[i]));
         }
+        this.textoConsola.setText(this.textoConsola.getText()+"\n\n"+analizador.cadenaOrdenada());
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**
