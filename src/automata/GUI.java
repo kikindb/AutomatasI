@@ -145,7 +145,7 @@ public class GUI extends javax.swing.JFrame {
         automata.setPalabra(this.textoAnalizar.getText());
         String aux = automata.analisis();
         //this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(automata.getPalabra()));
-        this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.\nEstado: "+aux);
+        this.textoConsola.setText("Cadena: "+automata.getPalabra()+"\nLongitud: "+automata.getLongitud()+" carácteres.");
         this.textoConsola.setText(this.textoConsola.getText()+"\n");
         //this.textoConsola.setText(this.textoConsola.getText()+"\n"+automata.getcME());
         

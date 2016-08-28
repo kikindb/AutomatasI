@@ -54,22 +54,22 @@ public class Analizador {
         buscarErrores(cadena);
         
         String patron = 
-                "(\\bwhile\\b|\\btrue\\b|\\barray\\b|\\bbegin\\b|\\bboolean\\b|\\bby\\b|\\bbyte\\b|\\bcase\\b|\\bchar\\b|\\bconst\\b|\\bdiv\\b|\\bdo\\b|\\belse\\b|\\belseif\\b|\\bend\\b|\\bexit\\b|\\bfalse\\b|\\bfor\\b|\\bfunction\\b|\\bif\\b|\\binteger\\b|\\bloop\\b|\\bmod\\b|\\bmodule\\b|\\bof\\b|\\bprocedure\\b|\\breadln\\b|\\brecord\\b|\\breal\\b|\\brepeat\\b|\\breturn\\b|\\bstring\\b|\\bthen\\b|\\bto\\b|\\buntil\\b|\\bvar\\b|\\bwith\\b|\\bwriteln\\b)"
-                + "|(\\s+)" //Espacios 2
+                "(while|true|array|begin|boolean|by|byte|case|char|const|div|do|else|elseif|end|exit|false|for|function|if|integer|loop|mod|module|of|procedure|readln|record|real|repeat|return|string|then|to|until|var|with|writeln)"
+                + "|(\\s+)" //Espacios 2 \\bwhile\\b|\\btrue\\b|\\barray\\b|\\bbegin\\b|\\bboolean\\b|\\bby\\b|\\bbyte\\b|\\bcase\\b|\\bchar\\b|\\bconst\\b|\\bdiv\\b|\\bdo\\b|\\belse\\b|\\belseif\\b|\\bend\\b|\\bexit\\b|\\bfalse\\b|\\bfor\\b|\\bfunction\\b|\\bif\\b|\\binteger\\b|\\bloop\\b|\\bmod\\b|\\bmodule\\b|\\bof\\b|\\bprocedure\\b|\\breadln\\b|\\brecord\\b|\\breal\\b|\\brepeat\\b|\\breturn\\b|\\bstring\\b|\\bthen\\b|\\bto\\b|\\buntil\\b|\\bvar\\b|\\bwith\\b|\\bwriteln\\b)
                 + "|([>|<|==|>=|<=|!|:=])" //Comparador 3
                 + "|((?!\\/\\*)[+*\\-/])" //Operador //[\\.=\\+\\-/*%] 4([\\.=\\+\\-*%]
                 + "|([\\\\\\(\\)\\[\\]\\;])" //Delimitador 5([\\(\\)\\\\\\[\\];,]))
-                + "|(\\d*\\.?\\d)" //Numeros 6
+                + "|(\\d)" //Numeros 6\\d*\\.?\\d
                 + "|([{].*?[}])" //Comentario Tipo1 7
                 + "|([/][*].*?[*][/])" //Comentario Tipo2 8/[*].*?[*]/
-                + "|(\\bor|\\band|\\bnot)" //logicos 9
+                + "|(\\bor|and|\\bnot)" //logicos 9
                 + "|([\"].*?[\"])" //Letreros 10
-                + "|([^0-9]+[a-zA-Z][0-9]*[^-_*+)])"; //Identificador 11([^0-9]+[a-zA-Z]+[^-_)])
+                + "|([^0-9]*[a-zA-Z]*[^-_*+\\d)])"; //Identificador 11[^0-9]*[a-zA-Z]*[0-9]*[^-_*+)]
 
-        String texto = cadena.toLowerCase();
+        String texto = cadena;
         String concat = "";//"\n\n\t------------------\n\tToken\tLexema\n\t------------------";
 
-        Pattern p = Pattern.compile(patron);
+        Pattern p = Pattern.compile(patron,Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(texto);
         String token=null;
         while(m.find()){
@@ -77,6 +77,7 @@ public class Analizador {
             if(token1!=null){
                 concat+="\n\tP.Reservada\t"+token1;
                 this.palabrasClaveL.add(token1);
+                System.out.println("Token 1:" +token1);
             }
             String token2 = m.group(2);
             if(token2!=null){
@@ -132,7 +133,9 @@ public class Analizador {
     }
     public String cadenaOrdenada(){
         String aux;
+        AnalizadorSemantico semantico = new AnalizadorSemantico();
         NumberFormat nf = new DecimalFormat("##.###");
+        Collections.sort(this.numeros,Collections.reverseOrder());
         ArrayList<String> auxNumber = new ArrayList<String>();
         for (double numero : this.numeros) {
             auxNumber.add(nf.format(numero));
@@ -140,8 +143,19 @@ public class Analizador {
         this.identificadores.sort(null);
         this.palabrasClaveL.sort(null);
         this.logicos.sort(null);
-        Collections.sort(this.numeros,Collections.reverseOrder());
-        aux = this.identificadores.toString()+this.logicos.toString()+auxNumber.toString()+this.palabrasClaveL.toString()+this.operadores.toString()+this.letreros.toString()+this.comentarios2.toString();
+        
+        //aux = this.identificadores.toString()+this.logicos.toString()+auxNumber.toString()+this.palabrasClaveL.toString()+this.operadores.toString()+this.letreros.toString()+this.comentarios2.toString();
+        aux = semantico.analizar(arrayListToString(this.identificadores))+arrayListToString(this.logicos)+arrayListToString(auxNumber)+arrayListToString(this.palabrasClaveL)+arrayListToString(this.operadores)+arrayListToString(this.letreros)+arrayListToString(this.comentarios2);
         return aux;
     }
+    
+    public String arrayListToString(ArrayList lista){
+        String aux="";
+        for (int i = 0; i < lista.size(); i++) {
+            aux+=lista.get(i);
+        }
+        
+        return aux;
+    }
+    
 }
