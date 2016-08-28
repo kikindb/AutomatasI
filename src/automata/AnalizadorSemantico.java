@@ -92,7 +92,7 @@ public class AnalizadorSemantico {
             System.out.println(i);
         }*/
         
-        System.out.println("\nCadena Ordenada:");
+        System.out.println("\nCadena Ordenada:\n");
         String aux = String.join("", arrayMin)+String.join("", arrayMay)+String.join("", arrayNum);
         System.out.println(aux);
         return aux;

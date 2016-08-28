@@ -138,7 +138,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Realizado por J Enrique Dick B, Alan I Moreno P, Jorge Herrera F, Jesus Regalado A"/>
+        <Property name="text" type="java.lang.String" value="Realizado por Jes&#xfa;s Enrique Dick Bustamante, Alan I Moreno P y Jorge Herrera F."/>
       </Properties>
     </Component>
   </SubComponents>

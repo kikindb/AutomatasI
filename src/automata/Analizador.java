@@ -62,7 +62,7 @@ public class Analizador {
                 + "|(\\d)" //Numeros 6\\d*\\.?\\d
                 + "|([{].*?[}])" //Comentario Tipo1 7
                 + "|([/][*].*?[*][/])" //Comentario Tipo2 8/[*].*?[*]/
-                + "|(\\bor|and|\\bnot)" //logicos 9
+                + "|(or|and|not)" //logicos 9
                 + "|([\"].*?[\"])" //Letreros 10
                 + "|([^0-9]*[a-zA-Z]*[^-_*+\\d)])"; //Identificador 11[^0-9]*[a-zA-Z]*[0-9]*[^-_*+)]
 

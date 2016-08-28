@@ -18,9 +18,10 @@ public class GUI extends javax.swing.JFrame {
      */
     public GUI() {
         initComponents();
-        setTitle("Analizador Léxico");
+        setTitle("Analizador Léxico y Semántico");
         this.textoConsola.setBackground(Color.black);
         this.textoConsola.setForeground(Color.green);
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -96,7 +97,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Realizado por J Enrique Dick B, Alan I Moreno P, Jorge Herrera F, Jesus Regalado A");
+        jLabel2.setText("Realizado por Jesús Enrique Dick Bustamante, Alan I Moreno P y Jorge Herrera F.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -153,7 +154,7 @@ public class GUI extends javax.swing.JFrame {
         for (int i = 0; i < cadena.length; i++) {
             this.textoConsola.setText(this.textoConsola.getText()+analizador.analizarCadena(cadena[i]));
         }
-        this.textoConsola.setText(this.textoConsola.getText()+"\n\n"+analizador.cadenaOrdenada());
+        this.textoConsola.setText(this.textoConsola.getText()+"\n\nAnalizador Semántico\n\nCadena Ordenada:\n"+analizador.cadenaOrdenada());
     }//GEN-LAST:event_btnAnalizarActionPerformed
 
     /**
